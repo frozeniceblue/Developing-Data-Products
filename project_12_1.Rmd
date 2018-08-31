@@ -1,0 +1,34 @@
+---
+title: "Leaflet_Map"
+author: "Zhengmao Zhu"
+date: "August 31, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Introduction
+Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+## Show the Position
+Here is the 10 random positions near the UCONN in the map.
+```{r Show the Position, comment=""}
+library(leaflet)
+set.seed(777)
+position=data.frame(lat=runif(10, min=41.77, max=41.88),
+                    lng=runif(10, min=-72.33, max=-72.22),
+                    col=sample(c("red","blue","yellow"),10,replace=TRUE),
+                    stringAsFactors=FALSE)
+position%>%
+leaflet()%>%
+addTiles()%>%
+addMarkers(popup=(rep("UCONN",10)),clusterOptions = markerClusterOptions())%>%
+addCircleMarkers(color=position$col)%>%
+addLegend(labels=LETTERS[1:3],color=c("red","blue","yellow"))
+```
+
